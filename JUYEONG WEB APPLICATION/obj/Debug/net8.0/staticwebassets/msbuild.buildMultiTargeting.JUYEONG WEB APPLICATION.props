@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\JUYEONG WEB APPLICATION.props" />
+</Project>
