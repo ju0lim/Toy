@@ -21,7 +21,6 @@ namespace JUYEONG_WEB_APPLICATION
     public class UserInfoDbContext : DbContext
     {
         public DbSet<UserInfo> UserInfo { get; set; }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -34,6 +33,12 @@ namespace JUYEONG_WEB_APPLICATION
 
                 optionsBuilder.UseSqlServer(connStr);
             }
+        }
+
+        public async Task<UserInfo> GetUserInfo(string email)
+        {
+            UserInfo? user = await UserInfo.FindAsync(email);
+            return user;
         }
     }
 }

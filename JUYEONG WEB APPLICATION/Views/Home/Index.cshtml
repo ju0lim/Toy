@@ -57,6 +57,7 @@
                 }
             });
 
+
             $('#loginBtn').click(function () {
                 var formData = {
                     email: $('#loginForm input[name="email"]').val(),
@@ -94,10 +95,6 @@
                     password: $('#signupForm input[name="password"]').val(),
                     passwordConfirm: $('#signupForm input[name="passwordConfirm"]').val()
                 };
-
-                console.log($('#signupForm input[name="email"]').val());
-                console.log($('#signupForm input[name="password"]').val());
-                console.log($('#signupForm input[name="passwordConfirm"]').val());
 
                 $.ajax({
                     type: 'POST',

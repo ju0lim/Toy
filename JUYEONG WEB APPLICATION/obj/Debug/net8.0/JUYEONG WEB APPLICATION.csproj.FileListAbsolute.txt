@@ -136,3 +136,4 @@ C:\Users\임주영\Desktop\JUYEONG WEB APPLICATION\JUYEONG WEB APPLICATION\bin\D
 C:\Users\임주영\Desktop\JUYEONG WEB APPLICATION\JUYEONG WEB APPLICATION\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\임주영\Desktop\JUYEONG WEB APPLICATION\JUYEONG WEB APPLICATION\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\임주영\Desktop\JUYEONG WEB APPLICATION\JUYEONG WEB APPLICATION\bin\Debug\net8.0\BCrypt.Net.dll
+C:\Users\임주영\Desktop\JUYEONG WEB APPLICATION\JUYEONG WEB APPLICATION\obj\Debug\net8.0\JUYEONG WEB APPLICATION.sourcelink.json

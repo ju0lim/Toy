@@ -9,25 +9,27 @@ namespace JUYEONG_WEB_APPLICATION.Controllers
             return View();
         }
 
-        public JsonResult Login(string email, string password)
+        public async Task<JsonResult> Login(string email, string password)
         {
             bool bSuccess = false;
 
             using (UserInfoDbContext context = new UserInfoDbContext())
             {
-                UserInfo user = GetUserInfo(email);
+                UserInfo user = await context.GetUserInfo(email);
 
                 if (user != null && BCrypt.Net.BCrypt.Verify(password, user.Password))
                 {
                     bSuccess = true;
                 }
+
+                HttpContext.Session.SetString("user", email);
             }
 
             var result = new {success = bSuccess};
             return Json(result);
         }
         
-        public JsonResult SignUp(string email, string password, string passwordConfirm)
+        public async Task<JsonResult> SignUp(string email, string password, string passwordConfirm)
         {
             if (password != passwordConfirm)
             {
@@ -36,7 +38,7 @@ namespace JUYEONG_WEB_APPLICATION.Controllers
 
             using (UserInfoDbContext context = new UserInfoDbContext())
             {
-                UserInfo user = GetUserInfo(email);
+                UserInfo user = await context.GetUserInfo(email);
 
                 if (user != null)
                 {
@@ -46,21 +48,10 @@ namespace JUYEONG_WEB_APPLICATION.Controllers
                 string passwordHash = BCrypt.Net.BCrypt.HashString(password);
                 UserInfo userInfo = new UserInfo(email, passwordHash);
                 context.UserInfo.Add(userInfo);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
 
             return Json(new { success = true });
-        }
-
-        private UserInfo GetUserInfo(string email)
-        {
-            UserInfo? user = null;
-            using (UserInfoDbContext context = new UserInfoDbContext())
-            {
-                user = context.UserInfo.SingleOrDefault(u => u.Email == email);
-            }
-
-            return user;
         }
     }
 }
