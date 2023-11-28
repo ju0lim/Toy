@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main</title>
+    <style>
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #333;
+            color: #fff;
+        }
+        
+        #sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        #sidebar ul li {
+            padding: 10px;
+        }
+        
+        #sidebar ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        #content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    @RenderBody()
+    <div id="sidebar">
+        <div id="user-info">
+            <h4>Email</h4>
+        </div>
+        <ul>
+            <li><a href="/MainPage">홈</a></li>
+            <li><a href="/dashboard">대시보드</a></li>
+        </ul>
+    </div>
+</body>
+</html>
