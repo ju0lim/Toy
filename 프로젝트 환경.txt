@@ -1,3 +1,0 @@
-.Net 8.0
-Microsoft.EntityFrameworkCore 8.0
-jQuery 3.7.1
