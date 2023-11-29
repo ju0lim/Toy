@@ -2,7 +2,7 @@
 
 namespace JUYEONG_WEB_APPLICATION.Controllers
 {
-    public class MainPageController : Controller
+    public class ResumeController : Controller
     {
         public IActionResult Index()
         {

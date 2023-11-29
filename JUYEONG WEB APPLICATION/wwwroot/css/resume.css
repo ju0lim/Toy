@@ -1,0 +1,154 @@
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #333;
+    padding-top: 20px;
+}
+
+    .sidebar a {
+        padding: 10px 15px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 18px;
+        color: #fff;
+        display: block;
+        transition: 0.3s;
+    }
+
+        .sidebar a:hover {
+            background-color: #007BFF;
+        }
+
+.content {
+    margin-left: 250px;
+    padding: 1em;
+    background: #fff;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 0.5em 0;
+    text-align: center;
+}
+
+    header h1 {
+        margin: 0;
+        padding: 0.5em 0;
+        font-size: 2em;
+    }
+
+.skills-container,
+.resume-section {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+    .resume-section h2,
+    .skills-container h2 {
+        color: #007bff;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+    }
+
+    .resume-section h4,
+    .skills-container h4 {
+        color: #333333;
+        margin-top: 10px;
+    }
+
+    .resume-section p,
+    .skills-container p {
+        font-size: 0.9em;
+        line-height: 1.6;
+    }
+
+    .resume-section ul,
+    .skills-container ul {
+        list-style-type: square;
+        padding-left: 20px;
+    }
+
+        .resume-section ul li,
+        .skills-container ul li {
+            padding: 2px 0;
+        }
+
+.skill-name {
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+
+.skill-bar {
+    background: #ddd;
+    height: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.skill-percentage {
+    background: #4CAF50;
+    height: 100%;
+    border-radius: 8px;
+    line-height: 20px;
+    color: white;
+    padding-right: 5px;
+}
+
+.section-content {
+    display: block;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.project-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-basis: 48%;
+}
+
+.project-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.toggle-section {
+    font-size: 1.5em;
+    color: #007BFF;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #007BFF;
+}
+
+.section-content {
+    padding: 0;
+}
+
+    .section-content ul {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+
+        .section-content ul li {
+            padding-bottom: 5px;
+        }

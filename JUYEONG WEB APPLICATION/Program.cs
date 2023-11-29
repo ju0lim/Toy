@@ -7,16 +7,21 @@ namespace JUYEONG_WEB_APPLICATION
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(5);
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
             });
 
             var app = builder.Build();
+
+            app.UseSession();
 
             if (!app.Environment.IsDevelopment())
             {
@@ -30,8 +35,6 @@ namespace JUYEONG_WEB_APPLICATION
             app.UseRouting();
 
             app.UseAuthorization();
-
-            app.UseSession();
             
             app.MapControllerRoute(
                 name: "default",

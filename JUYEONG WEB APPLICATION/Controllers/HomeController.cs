@@ -23,8 +23,6 @@ namespace JUYEONG_WEB_APPLICATION.Controllers
                 }
 
                 HttpContext.Session.SetString("User", email);
-                ViewData["ID"] = HttpContext.Session.GetString("User");
-                
             }
 
             var result = new { success = bSuccess };

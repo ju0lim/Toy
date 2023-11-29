@@ -18,16 +18,16 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\임주영\Desktop\JUYEONG WEB APPLICATION\JUYEONG WEB APPLICATION
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/임주영/Desktop/JUYEONG WEB APPLICATION/JUYEONG WEB APPLICATION/Views/Dashboard/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXEluZGV4LmNzaHRtbA==
+[C:/Users/임주영/Desktop/JUYEONG WEB APPLICATION/JUYEONG WEB APPLICATION/Views/Calendar/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FsZW5kYXJcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/임주영/Desktop/JUYEONG WEB APPLICATION/JUYEONG WEB APPLICATION/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/임주영/Desktop/JUYEONG WEB APPLICATION/JUYEONG WEB APPLICATION/Views/MainPage/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFpblBhZ2VcSW5kZXguY3NodG1s
+[C:/Users/임주영/Desktop/JUYEONG WEB APPLICATION/JUYEONG WEB APPLICATION/Views/Resume/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdW1lXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/임주영/Desktop/JUYEONG WEB APPLICATION/JUYEONG WEB APPLICATION/Views/Shared/Error.cshtml]

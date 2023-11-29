@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,38 +15,50 @@
             height: 100%;
             background-color: #333;
             color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
-        
-        #sidebar ul {
-            list-style-type: none;
-            padding: 0;
+
+            #sidebar ul {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+                width: 100%;
+            }
+
+                #sidebar ul li {
+                    padding: 10px;
+                    color: #fff;
+                }
+
+                    #sidebar ul li a {
+                        display: block;
+                        width: 100%;
+                        text-align: left;
+                        padding-left: 15px;
+                        color: #fff;
+                        text-decoration: none;
+                    }
+
+        #user-info {
+            text-align: left;
+            padding-left: 15px;
+            font-weight: bold;
         }
-        
-        #sidebar ul li {
-            padding: 10px;
-        }
-        
-        #sidebar ul li a {
-            color: #fff;
-            text-decoration: none;
-        }
-        
-        #content {
-            margin-left: 250px;
-            padding: 20px;
-        }
+
     </style>
 </head>
 <body>
-    @RenderBody()
     <div id="sidebar">
         <div id="user-info">
-            <h4>Email</h4>
+            <h4>@HttpContextAccessor.HttpContext?.Session.GetString("User")</h4>
         </div>
         <ul>
-            <li><a href="/MainPage">홈</a></li>
-            <li><a href="/dashboard">대시보드</a></li>
+            <li><a href="/Resume">이력서</a></li>
+            <li><a href="/Calendar">캘린더</a></li>
         </ul>
     </div>
+    @RenderBody()
 </body>
 </html>

@@ -2,7 +2,7 @@
 
 namespace JUYEONG_WEB_APPLICATION.Controllers
 {
-    public class DashboardController : Controller
+    public class CalendarController : Controller
     {
         public IActionResult Index()
         {
