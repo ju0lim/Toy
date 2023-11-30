@@ -152,3 +152,81 @@ header {
         .section-content ul li {
             padding-bottom: 5px;
         }
+
+
+/* Calendar */
+
+#calendar {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#addEventBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    display: none;
+    border: 1px solid #808080;
+}
+
+    .modal label {
+        font-weight: 600;
+        margin-top: 10px;
+    }
+
+    .modal input[type=text],
+    .modal input[type=date] {
+        width: 90%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #808080;
+        border-radius: 5px;
+    }
+
+    .modal button {
+        padding: 10px 20px;
+        margin-top: 20px;
+        margin-right: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .modal button[type=submit] {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .modal button[type=button] {
+            background-color: #dc3545;
+            color: white;
+        }
+
+            .modal button[type=submit]:hover,
+            .modal button[type=button]:hover {
+                opacity: 0.9;
+            }
+
+
+@media (max-width: 768px) {
+    #content {
+        margin-left: 0;
+    }
+}

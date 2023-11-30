@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "dZzKWUVY6oiinprPVsbUuSoZthhvyyZScZKoOm4xY1E=",
+  "Hash": "caQ8PLwyJjLrXSqrdkY4Niu8PYp0zq4AkhxqE54qZig=",
   "Source": "JUYEONG WEB APPLICATION",
   "BasePath": "_content/JUYEONG WEB APPLICATION",
   "Mode": "Default",
@@ -55,6 +55,25 @@
       "OriginalItemSpec": "C:\\Users\\임주영\\Desktop\\JUYEONG WEB APPLICATION\\JUYEONG WEB APPLICATION\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\JUYEONG WEB APPLICATION.bundle.scp.css"
     },
     {
+      "Identity": "C:\\Users\\임주영\\Desktop\\JUYEONG WEB APPLICATION\\JUYEONG WEB APPLICATION\\wwwroot\\css\\common.css",
+      "SourceId": "JUYEONG WEB APPLICATION",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\임주영\\Desktop\\JUYEONG WEB APPLICATION\\JUYEONG WEB APPLICATION\\wwwroot\\",
+      "BasePath": "_content/JUYEONG WEB APPLICATION",
+      "RelativePath": "css/common.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\common.css"
+    },
+    {
       "Identity": "C:\\Users\\임주영\\Desktop\\JUYEONG WEB APPLICATION\\JUYEONG WEB APPLICATION\\wwwroot\\css\\login.css",
       "SourceId": "JUYEONG WEB APPLICATION",
       "SourceType": "Discovered",
@@ -72,25 +91,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\login.css"
-    },
-    {
-      "Identity": "C:\\Users\\임주영\\Desktop\\JUYEONG WEB APPLICATION\\JUYEONG WEB APPLICATION\\wwwroot\\css\\resume.css",
-      "SourceId": "JUYEONG WEB APPLICATION",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\임주영\\Desktop\\JUYEONG WEB APPLICATION\\JUYEONG WEB APPLICATION\\wwwroot\\",
-      "BasePath": "_content/JUYEONG WEB APPLICATION",
-      "RelativePath": "css/resume.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\resume.css"
     },
     {
       "Identity": "C:\\Users\\임주영\\Desktop\\JUYEONG WEB APPLICATION\\JUYEONG WEB APPLICATION\\wwwroot\\css\\site.css",

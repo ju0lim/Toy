@@ -3,17 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <title>Calendar</title>
+    <link rel="stylesheet" href="~/css/common.css">
+
+    <!-- FullCalendar -->
+
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js'></script> 
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script>
+
+    <script src="~/js/common.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css">
+    
 </head>
 <body>
+    <div id="content">
+        <div id='calendar'></div>
+    </div>
+
+    <div id="eventModal" class="modal">
+        <form id="eventForm">
+            <label for="eventTitle">제목</label>
+            <input type="text" id="eventTitle" name="eventTitle"><br>
+            <label for="startDate">시작 날짜</label>
+            <input type="date" id="startDate" name="startDate"><br>
+            <label for="endDate">종료 날짜</label>
+            <input type="date" id="endDate" name="endDate"><br>
+            <button type="submit">저장</button>
+            <button type="button" onclick="$('#eventModal').hide()">취소</button>
+        </form>
+    </div>
+
+    <div id="eventEditModal" class="modal">
+        <h3>이벤트 편집</h3>
+        <p><strong>제목</strong> <span id="modalTitle"></span></p>
+        <p><strong>시작 날짜</strong> <span id="modalStart"></span></p>
+        <p><strong>종료 날짜</strong> <span id="modalEnd"></span></p>
+        <button type="submit" id="editEvent">수정</button>
+        <button type="submit" id="deleteEvent">삭제</button>
+        <button type="button" onclick="$('#eventEditModal').hide()">취소</button>
+    </div>
+
+    <div id="eventModifyModal" class="modal">
+        <h3>이벤트 수정</h3>
+        <form id="modifyEventForm">
+            <label for="eventTitle">제목</label>
+            <input type="text" id="modifyTitle" name="eventTitle"><br>
+            <label for="startDate">시작 날짜</label>
+            <input type="date" id="modifyStartDate" name="startDate"><br>
+            <label for="endDate">종료 날짜</label>
+            <input type="date" id="modifyEndDate" name="endDate"><br>
+            <button type="submit">저장</button>
+            <button type="button" onclick="$('#eventModifyModal').hide()">취소</button>
+        </form>
+    </div>
 </body>
 </html>
 
 <script>
     $(document).ready(function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'addEventButton'
+            },
+            customButtons: {
+                addEventButton: {
+                    text: '일정 추가',
+                    click: function () {
+                        $('#eventModal').show();
+                    }
+                }
+            },
+            initialView: 'dayGridMonth',
+            editable: true,
+            selectable: true,
+            events: '/Calendar/InitEvents', // 이 경로는 서버의 실제 엔드포인트로 변경되어야 합니다.
+    
+            select: function (info) {
+                // 일정 추가 로직
+                var title = prompt('Event Title:');
+                if (title) {
+                    var eventData = {
+                        title: title,
+                        start: info.startStr,
+                        end: info.endStr
+                    };
+                    // 서버에 이벤트 데이터를 저장하는 AJAX 요청 추가
+                    
+                }
+                calendar.unselect();
+            },
+            
+            eventClick: function (info) {
+                let beforeTitle = info.event.title;
+                let beforeStartDate = toLocalISOString(info.event.start);
+                let beforeEndDate = info.event.end.toISOString().split('T')[0];
 
+                $('#modalTitle').text(beforeTitle);
+                $('#modalStart').text(beforeStartDate);
+                $('#modalEnd').text(beforeEndDate);
+
+                $('#eventEditModal').show();
+
+                $('#editEvent').off('click').on('click', function () {
+                    if (beforeTitle != $('#modalTitle').text() || beforeStartDate != $('#modalStart').text() || beforeEndDate != $('#modalEnd').text()) {
+
+                        let end = $('#modifyEndDate').val();
+                        
+                        let addPlus1 = new Date(end);
+                        addPlus1.setDate(addPlus1.getDate() + 1);
+                        end = addPlus1.toISOString().split('T')[0];
+
+                        addPlus1 = new Date(beforeEndDate);
+                        addPlus1.setDate(addPlus1.getDate() + 1);
+                        beforeEndDate = addPlus1.toISOString().split('T')[0];
+                        
+                        info.event.setProp('title', $('#modifyTitle').val());
+                        info.event.setStart($('#modifyStartDate').val());
+                        info.event.setEnd(end);
+
+                        // 서버 수정 로직
+
+                        var formData = {
+                            beforeTitle: beforeTitle,
+                            beforeStart: beforeStartDate,
+                            beforeEnd: beforeEndDate,
+                            modifyTitle: $('#modifyTitle').val(),
+                            modifyStart: $('#modifyStartDate').val(),
+                            modifyEnd: end
+                        };
+
+                        console.log(formData);
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '/Calendar/ModifyEvent',
+                            data: formData,
+                            dataType: 'json',
+                            success: function (data) {
+                                if (data.success) {
+                                    alterByToast('성공', '일정이 수정 되었습니다.', 'success');
+                                    $('#eventModal').hide();
+                                } else {
+                                    alterByToast('오류', '실패했습니다.', 'error');
+                                }
+                            },
+                            error: function (error) {
+                                console.log('Error:', error);
+                                console.log(data.message);
+                            }
+                        });
+
+
+                        $('#eventEditModal').hide();
+                    }
+                    else{
+                        $('#modifyTitle').val(beforeTitle);
+                        $('#modifyStartDate').val(beforeStartDate);
+                        $('#modifyEndDate').val(beforeEndDate);
+                        $('#eventModifyModal').show();
+                    }
+                });
+
+                $('#deleteEvent').off('click').on('click', function () {
+                    info.event.remove();
+                    
+                    let addPlus1 = new Date(beforeEndDate);
+                    addPlus1.setDate(addPlus1.getDate() + 1);
+                    beforeEndDate = addPlus1.toISOString().split('T')[0];
+
+                    var formData = {
+                        title: beforeTitle,
+                        start: beforeStartDate,
+                        end: beforeEndDate
+                    };
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Calendar/RemoveEvent',
+                        data: formData,
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.success) {
+                                alterByToast('성공', '일정이 삭제 되었습니다.', 'success');
+                                $('#eventModal').hide();
+                            } else {
+                                alterByToast('오류', '실패했습니다.', 'error');
+                            }
+                        },
+                        error: function (error) {
+                            console.log('Error:', error);
+                        }
+                    });
+
+                    $('#eventEditModal').hide();
+                });
+            }
+        });
+
+        calendar.render();
+
+        $('#addEventBtn').on('click', function () {
+            $('#eventModal').show();
+        });
+
+        $('#eventForm').on('submit', function (e) {
+            e.preventDefault();
+            var title = $('#eventTitle').val();
+            var start = $('#startDate').val();
+            var end = $('#endDate').val();
+
+            var addPlus1 = new Date(end);
+            addPlus1.setDate(addPlus1.getDate() + 1);
+            end = addPlus1.toISOString().split('T')[0];
+
+            if (title && start && end) {
+                calendar.addEvent({
+                    title: title,
+                    start: start,
+                    end: end
+                });
+
+                var formData = {
+                    title: title,
+                    start: start,
+                    end: end
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/Calendar/AddEvent',
+                    data: formData,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.success) {
+                            alterByToast('성공', '일정이 추가 되었습니다.', 'success');
+                            $('#eventModal').hide();
+                        } else {
+                            alterByToast('오류', '이미 같은 일정이 존재합니다.', 'error');
+                        }
+                    },
+                    error: function (error) {
+                        console.log('Error:', error);
+                    }
+                });
+            } 
+            else {
+                alterByToast('오류', '제목,시작 날짜, 종료 날짜를 입력해주세요.', 'error');
+            }
+        });
+
+        $('#modifyEventForm').on('submit', function (e) {
+            e.preventDefault();
+            let title = $('#modifyTitle').val();
+            let start = $('#modifyStartDate').val();
+            let end = $('#modifyEndDate').val();
+
+            $('#modalTitle').text(title);
+            $('#modalStart').text(start);
+            $('#modalEnd').text(end);
+
+            $('#eventModifyModal').hide();
+        });
     });
+
+    function toLocalISOString(date) {
+        var tzOffset = date.getTimezoneOffset() * 60000;
+        var localISOTime = (new Date(date - tzOffset)).toISOString().split('T')[0];
+        return localISOTime;
+    }
 </script>

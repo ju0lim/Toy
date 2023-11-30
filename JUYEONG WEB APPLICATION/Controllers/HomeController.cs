@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace JUYEONG_WEB_APPLICATION.Controllers
 {
@@ -15,7 +16,7 @@ namespace JUYEONG_WEB_APPLICATION.Controllers
 
             using (UserInfoDbContext context = new UserInfoDbContext())
             {
-                UserInfo user = await context.GetUserInfo(email);
+                UserInfo? user = await context.UserInfo.FindAsync(email);
 
                 if (user != null && BCrypt.Net.BCrypt.Verify(password, user.Password))
                 {
@@ -33,7 +34,7 @@ namespace JUYEONG_WEB_APPLICATION.Controllers
         {
             using (UserInfoDbContext context = new UserInfoDbContext())
             {
-                UserInfo user = await context.GetUserInfo(email);
+                UserInfo? user = await context.UserInfo.FindAsync(email);
 
                 if (user != null)
                 {

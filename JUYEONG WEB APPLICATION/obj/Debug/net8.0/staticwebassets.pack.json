@@ -5,12 +5,12 @@
       "PackagePath": "staticwebassets\\JUYEONG WEB APPLICATION.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\임주영\\Desktop\\JUYEONG WEB APPLICATION\\JUYEONG WEB APPLICATION\\wwwroot\\css\\login.css",
-      "PackagePath": "staticwebassets\\css\\login.css"
+      "Id": "C:\\Users\\임주영\\Desktop\\JUYEONG WEB APPLICATION\\JUYEONG WEB APPLICATION\\wwwroot\\css\\common.css",
+      "PackagePath": "staticwebassets\\css\\common.css"
     },
     {
-      "Id": "C:\\Users\\임주영\\Desktop\\JUYEONG WEB APPLICATION\\JUYEONG WEB APPLICATION\\wwwroot\\css\\resume.css",
-      "PackagePath": "staticwebassets\\css\\resume.css"
+      "Id": "C:\\Users\\임주영\\Desktop\\JUYEONG WEB APPLICATION\\JUYEONG WEB APPLICATION\\wwwroot\\css\\login.css",
+      "PackagePath": "staticwebassets\\css\\login.css"
     },
     {
       "Id": "C:\\Users\\임주영\\Desktop\\JUYEONG WEB APPLICATION\\JUYEONG WEB APPLICATION\\wwwroot\\css\\site.css",

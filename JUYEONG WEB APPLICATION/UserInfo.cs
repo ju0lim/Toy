@@ -29,16 +29,10 @@ namespace JUYEONG_WEB_APPLICATION
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
-                string connStr = configuration.GetConnectionString("ConnStr");
+                string? connStr = configuration.GetConnectionString("ConnStr");
 
                 optionsBuilder.UseSqlServer(connStr);
             }
-        }
-
-        public async Task<UserInfo> GetUserInfo(string email)
-        {
-            UserInfo? user = await UserInfo.FindAsync(email);
-            return user;
         }
     }
 }
