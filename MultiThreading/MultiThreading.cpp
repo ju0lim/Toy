@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <windows.h>
 
-DWORD WINAPI ThreadFunction(LPVOID lpParam);
+DWORD WINAPI AddAsync(LPVOID lpParam);
 CRITICAL_SECTION CriticalSection;
 
 int g_sharedData = 0;
@@ -25,7 +25,7 @@ int main()
 
     for (int i = 0; i < threadCount; i++)
     {
-        hThreads[i] = CreateThread(NULL, 0, ThreadFunction, NULL, 0, NULL);
+        hThreads[i] = CreateThread(NULL, 0, AddAsync, NULL, 0, NULL);
         if (hThreads[i] == NULL)
         {
             fprintf(stderr, "스레드 생성 실패\n");
@@ -50,7 +50,7 @@ int main()
     return 0;
 }
 
-DWORD WINAPI ThreadFunction(LPVOID lpParam)
+DWORD WINAPI AddAsync(LPVOID lpParam)
 {
     for (int i = 0; i < 10000; i++)
     {
