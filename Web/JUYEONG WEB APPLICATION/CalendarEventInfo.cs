@@ -1,10 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JUYEONG_WEB_APPLICATION
 {
     public class CalendarEventInfo
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int EventID { get; set; }
         public string Title { get; set; }
         public string Start { get; set; }
         public string End { get; set; }
@@ -34,12 +38,6 @@ namespace JUYEONG_WEB_APPLICATION
 
                 optionsBuilder.UseSqlServer(connStr);
             }
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<CalendarEventInfo>()
-                .HasKey(e => new { e.Title, e.Start, e.End });
         }
     }
 }

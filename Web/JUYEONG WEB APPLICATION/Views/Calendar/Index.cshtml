@@ -82,7 +82,7 @@
             initialView: 'dayGridMonth',
             editable: true,
             selectable: true,
-            events: '/Calendar/InitEvents', // 이 경로는 서버의 실제 엔드포인트로 변경되어야 합니다.
+            events: '/Calendar/InitEvents',
     
             select: function (info) {
                 // 일정 추가 로직
@@ -93,13 +93,13 @@
                         start: info.startStr,
                         end: info.endStr
                     };
-                    // 서버에 이벤트 데이터를 저장하는 AJAX 요청 추가
                     
                 }
                 calendar.unselect();
             },
             
             eventClick: function (info) {
+                let id = info.event.id;
                 let beforeTitle = info.event.title;
                 let beforeStartDate = toLocalISOString(info.event.start);
                 let beforeEndDate = info.event.end.toISOString().split('T')[0];
@@ -107,14 +107,13 @@
                 $('#modalTitle').text(beforeTitle);
                 $('#modalStart').text(beforeStartDate);
                 $('#modalEnd').text(beforeEndDate);
-
+                
                 $('#eventEditModal').show();
 
                 $('#editEvent').off('click').on('click', function () {
                     if (beforeTitle != $('#modalTitle').text() || beforeStartDate != $('#modalStart').text() || beforeEndDate != $('#modalEnd').text()) {
-
                         let end = $('#modifyEndDate').val();
-                        
+
                         let addPlus1 = new Date(end);
                         addPlus1.setDate(addPlus1.getDate() + 1);
                         end = addPlus1.toISOString().split('T')[0];
@@ -122,23 +121,17 @@
                         addPlus1 = new Date(beforeEndDate);
                         addPlus1.setDate(addPlus1.getDate() + 1);
                         beforeEndDate = addPlus1.toISOString().split('T')[0];
-                        
+
                         info.event.setProp('title', $('#modifyTitle').val());
                         info.event.setStart($('#modifyStartDate').val());
                         info.event.setEnd(end);
-
-                        // 서버 수정 로직
-
+                        
                         var formData = {
-                            beforeTitle: beforeTitle,
-                            beforeStart: beforeStartDate,
-                            beforeEnd: beforeEndDate,
+                            id: id,
                             modifyTitle: $('#modifyTitle').val(),
                             modifyStart: $('#modifyStartDate').val(),
                             modifyEnd: end
                         };
-
-                        console.log(formData);
 
                         $.ajax({
                             type: 'POST',
@@ -155,7 +148,6 @@
                             },
                             error: function (error) {
                                 console.log('Error:', error);
-                                console.log(data.message);
                             }
                         });
 
@@ -173,14 +165,8 @@
                 $('#deleteEvent').off('click').on('click', function () {
                     info.event.remove();
                     
-                    let addPlus1 = new Date(beforeEndDate);
-                    addPlus1.setDate(addPlus1.getDate() + 1);
-                    beforeEndDate = addPlus1.toISOString().split('T')[0];
-
                     var formData = {
-                        title: beforeTitle,
-                        start: beforeStartDate,
-                        end: beforeEndDate
+                        id: id
                     };
 
                     $.ajax({

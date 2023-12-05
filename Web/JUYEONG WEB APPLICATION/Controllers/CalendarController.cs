@@ -20,6 +20,7 @@ namespace JUYEONG_WEB_APPLICATION.Controllers
             
             return Ok(events.Select(e => new
             {
+                id = e.EventID,
                 title = e.Title,
                 start = e.Start,
                 end = e.End
@@ -30,24 +31,17 @@ namespace JUYEONG_WEB_APPLICATION.Controllers
         {
             using (CalendarEventInfoDbContext context = new CalendarEventInfoDbContext())
             {
-                CalendarEventInfo? info = await context.CalendarEventInfo.FindAsync(title, start, end);
-
-                if (info != null)
-                {
-                    return Json(new { success = false });
-                }
-
                 context.CalendarEventInfo.Add(new CalendarEventInfo(title, start, end));
                 await context.SaveChangesAsync();
             }
             return Json(new { success = true });
         }
 
-        public async Task<JsonResult> RemoveEvent(string title, string start, string end)
+        public async Task<JsonResult> RemoveEvent(int id)
         {
             using (CalendarEventInfoDbContext context = new CalendarEventInfoDbContext())
             {
-                CalendarEventInfo? info = await context.CalendarEventInfo.FindAsync(title, start, end);
+                CalendarEventInfo? info = await context.CalendarEventInfo.FindAsync(id);
 
                 if (info != null)
                 {
@@ -63,23 +57,23 @@ namespace JUYEONG_WEB_APPLICATION.Controllers
         {
             using (CalendarEventInfoDbContext context = new CalendarEventInfoDbContext())
             {
-                CalendarEventInfo? info = await context.CalendarEventInfo.FindAsync(data.BeforeTitle, data.BeforeStart, data.BeforeEnd);
+                CalendarEventInfo? beforeInfo = await context.CalendarEventInfo.FindAsync(data.ID);
 
                 try
                 {
-                    if (info != null)
+                    if (beforeInfo != null)
                     {
-                        info.Title = data.ModifyTitle;
-                        info.Start = data.ModifyStart;
-                        info.End = data.ModifyEnd;
-                        info.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                        beforeInfo.Title = data.ModifyTitle;
+                        beforeInfo.Start = data.ModifyStart;
+                        beforeInfo.End = data.ModifyEnd;
+                        beforeInfo.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                         await context.SaveChangesAsync();
                         return Json(new { success = true });
                     }
                 }
                 catch (Exception e)
                 {
-                    return Json(new { success = true, message = e.Message });
+                    return Json(new { success = false, message = e.Message });
                 }
                 
             }
@@ -89,9 +83,7 @@ namespace JUYEONG_WEB_APPLICATION.Controllers
 
     public class EditData
     {
-        public string? BeforeTitle { get; set; }
-        public string? BeforeStart { get; set; }
-        public string? BeforeEnd { get; set; }
+        public int ID { get; set; }
         public string? ModifyTitle { get; set; }
         public string? ModifyStart { get; set; }
         public string? ModifyEnd { get; set; }
