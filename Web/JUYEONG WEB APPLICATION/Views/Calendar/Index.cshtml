@@ -85,7 +85,6 @@
             events: '/Calendar/InitEvents',
     
             select: function (info) {
-                // 일정 추가 로직
                 var title = prompt('Event Title:');
                 if (title) {
                     var eventData = {
@@ -107,6 +106,8 @@
                 $('#modalTitle').text(beforeTitle);
                 $('#modalStart').text(beforeStartDate);
                 $('#modalEnd').text(beforeEndDate);
+
+                console.log(info.event);
                 
                 $('#eventEditModal').show();
 
@@ -209,12 +210,6 @@
             end = addPlus1.toISOString().split('T')[0];
 
             if (title && start && end) {
-                calendar.addEvent({
-                    title: title,
-                    start: start,
-                    end: end
-                });
-
                 var formData = {
                     title: title,
                     start: start,
@@ -228,6 +223,12 @@
                     dataType: 'json',
                     success: function (data) {
                         if (data.success) {
+                            calendar.addEvent({
+                                id: data.id,
+                                title: title,
+                                start: start,
+                                end: end
+                            });
                             alterByToast('성공', '일정이 추가 되었습니다.', 'success');
                             $('#eventModal').hide();
                         } else {

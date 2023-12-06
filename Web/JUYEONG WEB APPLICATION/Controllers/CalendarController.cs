@@ -31,10 +31,11 @@ namespace JUYEONG_WEB_APPLICATION.Controllers
         {
             using (CalendarEventInfoDbContext context = new CalendarEventInfoDbContext())
             {
-                context.CalendarEventInfo.Add(new CalendarEventInfo(title, start, end));
+                CalendarEventInfo newEvent = new CalendarEventInfo(title, start, end);
+                context.CalendarEventInfo.Add(newEvent);
                 await context.SaveChangesAsync();
+                return Json(new { success = true, id = newEvent.EventID });
             }
-            return Json(new { success = true });
         }
 
         public async Task<JsonResult> RemoveEvent(int id)
@@ -59,23 +60,15 @@ namespace JUYEONG_WEB_APPLICATION.Controllers
             {
                 CalendarEventInfo? beforeInfo = await context.CalendarEventInfo.FindAsync(data.ID);
 
-                try
+                if (beforeInfo != null)
                 {
-                    if (beforeInfo != null)
-                    {
-                        beforeInfo.Title = data.ModifyTitle;
-                        beforeInfo.Start = data.ModifyStart;
-                        beforeInfo.End = data.ModifyEnd;
-                        beforeInfo.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                        await context.SaveChangesAsync();
-                        return Json(new { success = true });
-                    }
+                    beforeInfo.Title = data.ModifyTitle;
+                    beforeInfo.Start = data.ModifyStart;
+                    beforeInfo.End = data.ModifyEnd;
+                    beforeInfo.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    await context.SaveChangesAsync();
+                    return Json(new { success = true });
                 }
-                catch (Exception e)
-                {
-                    return Json(new { success = false, message = e.Message });
-                }
-                
             }
             return Json(new { success = false });
         }
@@ -84,8 +77,8 @@ namespace JUYEONG_WEB_APPLICATION.Controllers
     public class EditData
     {
         public int ID { get; set; }
-        public string? ModifyTitle { get; set; }
-        public string? ModifyStart { get; set; }
-        public string? ModifyEnd { get; set; }
+        public string ModifyTitle { get; set; }
+        public string ModifyStart { get; set; }
+        public string ModifyEnd { get; set; }
     }
 }
